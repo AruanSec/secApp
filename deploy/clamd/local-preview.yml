@@ -1,0 +1,5 @@
+# Optional: expose only clamd on loopback for a backend running on the host.
+services:
+  clamd:
+    ports:
+      - "127.0.0.1:3310:3310"

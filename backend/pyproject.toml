@@ -1,0 +1,34 @@
+[project]
+name = "sentinel-scan-backend"
+version = "0.1.0"
+description = "Scan IoCs with clamd and enrich verdicts against VirusTotal, AlienVault OTX and abuse.ch"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi==0.115.5",
+    "uvicorn[standard]==0.32.1",
+    "httpx==0.27.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.8.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["."]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "C4", "SIM", "RUF"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

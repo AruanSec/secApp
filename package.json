@@ -1,0 +1,12 @@
+{
+  "name": "sentinel-scan",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node scripts/launch.mjs",
+    "start:web": "node scripts/launch.mjs --web",
+    "start:electron": "node scripts/launch.mjs --electron",
+    "test:desktop": "node --test desktop/*.test.cjs",
+    "register:desktop": "node scripts/register-desktop.mjs"
+  }
+}

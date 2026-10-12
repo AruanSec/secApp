@@ -1,0 +1,56 @@
+2026-10-11 21:42:18,645 INFO httpx HTTP Request: GET http://localhost/api/v1/reports "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,648 INFO httpx HTTP Request: GET http://localhost/api/v1/quarantine "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,672 INFO httpx HTTP Request: GET http://localhost/openapi.json "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,675 INFO httpx HTTP Request: GET http://localhost/api/v1/stats "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,679 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 202 Accepted"
+2026-10-11 21:42:18,681 INFO httpx HTTP Request: GET http://localhost/api/v1/scan/a5aefd7d-bfb7-4483-925c-54bdc0798b85 "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,682 INFO httpx HTTP Request: DELETE http://localhost/api/v1/selected-folder-scan/a5aefd7d-bfb7-4483-925c-54bdc0798b85 "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,684 INFO httpx HTTP Request: OPTIONS http://localhost/api/v1/selected-folder-scan "HTTP/1.1 405 Method Not Allowed"
+2026-10-11 21:42:18,685 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 400 Bad Request"
+2026-10-11 21:42:18,686 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 400 Bad Request"
+2026-10-11 21:42:18,688 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 400 Bad Request"
+2026-10-11 21:42:18,689 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 400 Bad Request"
+2026-10-11 21:42:18,690 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 400 Bad Request"
+2026-10-11 21:42:18,694 INFO httpx HTTP Request: GET http://localhost/api/v1/reports?verdict=%27%20OR%201%3D1%3B%20DROP%20TABLE%20scan%3B--&type=%3Cscript%3Ealert%281%29%3C%2Fscript%3E "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,695 INFO httpx HTTP Request: GET http://localhost/api/v1/quarantine/payload.bin "HTTP/1.1 404 Not Found"
+2026-10-11 21:42:18,698 INFO httpx HTTP Request: POST http://localhost/api/v1/scan "HTTP/1.1 400 Bad Request"
+2026-10-11 21:42:18,699 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 422 Unprocessable Entity"
+2026-10-11 21:42:18,701 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 202 Accepted"
+2026-10-11 21:42:18,702 INFO httpx HTTP Request: DELETE http://localhost/api/v1/selected-folder-scan/69f1ff83-4506-4a3d-a16b-09eff1cf284a "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,703 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 202 Accepted"
+2026-10-11 21:42:18,705 INFO httpx HTTP Request: DELETE http://localhost/api/v1/selected-folder-scan/0aa62f2c-2b63-4fec-a6b8-1308cec53487 "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,706 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 202 Accepted"
+2026-10-11 21:42:18,708 INFO httpx HTTP Request: DELETE http://localhost/api/v1/selected-folder-scan/3e649f46-aacb-495a-bc12-b9268e6dfe33 "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,709 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 202 Accepted"
+2026-10-11 21:42:18,710 INFO httpx HTTP Request: DELETE http://localhost/api/v1/selected-folder-scan/dfb26259-2c35-40e9-a9a3-96e6ee7e7765 "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,711 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 202 Accepted"
+2026-10-11 21:42:18,713 INFO httpx HTTP Request: DELETE http://localhost/api/v1/selected-folder-scan/4d9e7057-8261-41c2-8beb-70897fc7dc1d "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,714 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 202 Accepted"
+2026-10-11 21:42:18,715 INFO httpx HTTP Request: DELETE http://localhost/api/v1/selected-folder-scan/b6d4b4a5-f358-49c4-9259-6b5702e27da1 "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,716 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 202 Accepted"
+2026-10-11 21:42:18,718 INFO httpx HTTP Request: DELETE http://localhost/api/v1/selected-folder-scan/88b3e46e-c3ac-41c7-ad53-5ce4c12a741b "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,719 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 202 Accepted"
+2026-10-11 21:42:18,720 INFO httpx HTTP Request: DELETE http://localhost/api/v1/selected-folder-scan/24fcf071-5ed2-40ee-8f4f-1efc0e13ee59 "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,722 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 202 Accepted"
+2026-10-11 21:42:18,723 INFO httpx HTTP Request: PUT http://localhost/api/v1/selected-folder-scan/c81234b8-f734-4126-a38b-09df2589c386/files/0 "HTTP/1.1 413 Request Entity Too Large"
+2026-10-11 21:42:18,726 INFO httpx HTTP Request: GET http://localhost/api/v1/scan/c81234b8-f734-4126-a38b-09df2589c386 "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,727 INFO httpx HTTP Request: POST http://localhost/api/v1/selected-folder-scan "HTTP/1.1 202 Accepted"
+2026-10-11 21:42:18,728 INFO httpx HTTP Request: PUT http://localhost/api/v1/selected-folder-scan/c8a193cf-08a5-4611-b136-abc350c95b1d/files/0 "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,730 INFO httpx HTTP Request: GET http://localhost/api/v1/scan/c8a193cf-08a5-4611-b136-abc350c95b1d "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,732 INFO httpx HTTP Request: POST http://localhost/api/v1/batch-scan "HTTP/1.1 202 Accepted"
+2026-10-11 21:42:18,737 ERROR app.api.routes batch job ccc75704-6f04-401b-958e-378032aafded failed
+Traceback (most recent call last):
+  File "/app/app/api/routes.py", line 273, in _run_batch
+    results = await asyncio.to_thread(scanner.run_batch, settings, iocs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<stdin>", line 196, in broken
+RuntimeError: SECURITY_AUDIT_INTERNAL_DETAIL
+2026-10-11 21:42:18,747 INFO httpx HTTP Request: GET http://localhost/api/v1/scan/ccc75704-6f04-401b-958e-378032aafded "HTTP/1.1 200 OK"
+2026-10-11 21:42:18,760 INFO httpx HTTP Request: GET http://localhost/api/v1/scan/ccc75704-6f04-401b-958e-378032aafded "HTTP/1.1 200 OK"
+SECURITY_AUDIT_JSON={"observations": [{"check": "unauthenticated /api/v1/reports", "control_passed": false, "evidence": {"status": 200}}, {"check": "unauthenticated /api/v1/quarantine", "control_passed": false, "evidence": {"status": 200}}, {"check": "unauthenticated /openapi.json", "control_passed": false, "evidence": {"status": 200}}, {"check": "untrusted Host rejected", "control_passed": false, "evidence": {"status": 200}}, {"check": "cross-origin POST without Content-Type blocked", "control_passed": false, "evidence": {"status": 202, "content_type_sent": false}}, {"check": "job ownership enforced", "control_passed": false, "evidence": {"anonymous_read_status": 200}}, {"check": "CORS does not grant arbitrary origins", "control_passed": true, "evidence": {"status": 405, "allow_origin": null}}, {"check": "upload path rejected: ../secret", "control_passed": true, "evidence": {"status": 400}}, {"check": "upload path rejected: /etc/passwd", "control_passed": true, "evidence": {"status": 400}}, {"check": "upload path rejected: chosen/../../secret", "control_passed": true, "evidence": {"status": 400}}, {"check": "upload path rejected: .", "control_passed": true, "evidence": {"status": 400}}, {"check": "upload path rejected: ~/.ssh/key", "control_passed": true, "evidence": {"status": 400}}, {"check": "report SQL injection payload harmless", "control_passed": true, "evidence": {"status": 200, "table_preserved": true}}, {"check": "quarantine payload endpoint absent", "control_passed": true, "evidence": {"status": 404}}, {"check": "invalid input handled: /api/v1/scan", "control_passed": true, "evidence": {"status": 400}}, {"check": "invalid input handled: /api/v1/selected-folder-scan", "control_passed": true, "evidence": {"status": 422}}, {"check": "terminal jobs bounded or evicted", "control_passed": false, "evidence": {"sequential_cancelled_jobs": 8, "retained_jobs": 8}}, {"check": "stream size limit enforced", "control_passed": true, "evidence": {"status": 413, "job_status": "failed"}}, {"check": "declared oversized files skipped", "control_passed": true, "evidence": {"status": 200, "job_status": "completed"}}, {"check": "internal batch exceptions are redacted", "control_passed": false, "evidence": {"status": "failed", "error": "SECURITY_AUDIT_INTERNAL_DETAIL"}}, {"check": "URL indicator does not select outbound host", "control_passed": true, "evidence": {"outbound_hosts": ["otx.alienvault.com"], "scope": "mocked OTX URL branch; other providers reviewed in source"}}], "controls_passed": 13, "total_checks": 21}

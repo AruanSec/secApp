@@ -1,0 +1,163 @@
+{
+  "observations": [
+    {
+      "check": "unauthenticated /api/v1/reports",
+      "control_passed": false,
+      "evidence": {
+        "status": 200
+      }
+    },
+    {
+      "check": "unauthenticated /api/v1/quarantine",
+      "control_passed": false,
+      "evidence": {
+        "status": 200
+      }
+    },
+    {
+      "check": "unauthenticated /openapi.json",
+      "control_passed": false,
+      "evidence": {
+        "status": 200
+      }
+    },
+    {
+      "check": "untrusted Host rejected",
+      "control_passed": false,
+      "evidence": {
+        "status": 200
+      }
+    },
+    {
+      "check": "cross-origin POST without Content-Type blocked",
+      "control_passed": false,
+      "evidence": {
+        "status": 202,
+        "content_type_sent": false
+      }
+    },
+    {
+      "check": "job ownership enforced",
+      "control_passed": false,
+      "evidence": {
+        "anonymous_read_status": 200
+      }
+    },
+    {
+      "check": "CORS does not grant arbitrary origins",
+      "control_passed": true,
+      "evidence": {
+        "status": 405,
+        "allow_origin": null
+      }
+    },
+    {
+      "check": "upload path rejected: ../secret",
+      "control_passed": true,
+      "evidence": {
+        "status": 400
+      }
+    },
+    {
+      "check": "upload path rejected: /etc/passwd",
+      "control_passed": true,
+      "evidence": {
+        "status": 400
+      }
+    },
+    {
+      "check": "upload path rejected: chosen/../../secret",
+      "control_passed": true,
+      "evidence": {
+        "status": 400
+      }
+    },
+    {
+      "check": "upload path rejected: .",
+      "control_passed": true,
+      "evidence": {
+        "status": 400
+      }
+    },
+    {
+      "check": "upload path rejected: ~/.ssh/key",
+      "control_passed": true,
+      "evidence": {
+        "status": 400
+      }
+    },
+    {
+      "check": "report SQL injection payload harmless",
+      "control_passed": true,
+      "evidence": {
+        "status": 200,
+        "table_preserved": true
+      }
+    },
+    {
+      "check": "quarantine payload endpoint absent",
+      "control_passed": true,
+      "evidence": {
+        "status": 404
+      }
+    },
+    {
+      "check": "invalid input handled: /api/v1/scan",
+      "control_passed": true,
+      "evidence": {
+        "status": 400
+      }
+    },
+    {
+      "check": "invalid input handled: /api/v1/selected-folder-scan",
+      "control_passed": true,
+      "evidence": {
+        "status": 422
+      }
+    },
+    {
+      "check": "terminal jobs bounded or evicted",
+      "control_passed": false,
+      "evidence": {
+        "sequential_cancelled_jobs": 8,
+        "retained_jobs": 8
+      }
+    },
+    {
+      "check": "stream size limit enforced",
+      "control_passed": true,
+      "evidence": {
+        "status": 413,
+        "job_status": "failed"
+      }
+    },
+    {
+      "check": "declared oversized files skipped",
+      "control_passed": true,
+      "evidence": {
+        "status": 200,
+        "job_status": "completed"
+      }
+    },
+    {
+      "check": "internal batch exceptions are redacted",
+      "control_passed": false,
+      "evidence": {
+        "status": "failed",
+        "error": "SECURITY_AUDIT_INTERNAL_DETAIL"
+      }
+    },
+    {
+      "check": "URL indicator does not select outbound host",
+      "control_passed": true,
+      "evidence": {
+        "outbound_hosts": [
+          "otx.alienvault.com"
+        ],
+        "scope": "mocked OTX URL branch; other providers reviewed in source"
+      }
+    }
+  ],
+  "controls_passed": 13,
+  "total_checks": 21
+}

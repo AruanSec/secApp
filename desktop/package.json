@@ -1,0 +1,14 @@
+{
+  "name": "sentinel-scan-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Electron frontend for the local Sentinel Scan service",
+  "main": "main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test *.test.cjs"
+  },
+  "devDependencies": {
+    "electron": "44.7.0"
+  }
+}
