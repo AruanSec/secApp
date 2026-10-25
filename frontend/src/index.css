@@ -302,3 +302,91 @@ tbody tr:hover { background: #1b2e3470; }
 .desktop-launch details[open] { flex-basis: 100%; padding: 18px; border: 1px solid #344652; border-radius: 10px; background: #101b26; }
 .desktop-launch details p { font-size: 12px; line-height: 1.7; }
 .desktop-launch pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; }
+
+/* Theme control and light palette. Dark remains the default. */
+.theme-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 34px; padding: 7px 10px; color: #b8cad5; background: #111c27; border: 1px solid #2b3b49; border-radius: 7px; font-size: 10px; }
+.theme-toggle:hover { color: #eef6f3; background: #1c2b37; border-color: #4c665e; }
+.auth-theme { position: fixed; top: 22px; right: 22px; }
+.auth-shell > .theme-toggle { position: fixed; top: 22px; right: 22px; }
+
+:root[data-theme="light"] {
+  color: #1d2b35;
+  background: #eef3f5;
+  --mint: #087b63;
+  --amber: #97600a;
+  --blue: #2869a2;
+  --red: #b8293c;
+  --muted: #586d79;
+  --dim: #6b7d87;
+  --border: #c8d4d9;
+}
+:root[data-theme="light"] ::selection { background: #a9ddce; color: #10251f; }
+:root[data-theme="light"] .app-shell,
+:root[data-theme="light"] .auth-shell { background: #eef3f5; }
+:root[data-theme="light"] .main-shell { background: radial-gradient(ellipse at 65% 0%, #b7ddd455 0%, transparent 45%); }
+:root[data-theme="light"] .sidebar { background: #f7fafb; border-color: #cbd7dc; }
+:root[data-theme="light"] .brand-mark { color: #087b63; background: linear-gradient(160deg, #d9eee7, #edf7f4); border-color: #9fc9bc; box-shadow: none; }
+:root[data-theme="light"] .brand small,
+:root[data-theme="light"] .nav-caption,
+:root[data-theme="light"] .sidebar-tag { color: #627782; }
+:root[data-theme="light"] .nav-item { color: #536a76; }
+:root[data-theme="light"] .nav-item:hover { background: #e6eef1; color: #17262f; }
+:root[data-theme="light"] .nav-item.active { background: #dcefe9; border-color: #a9cec2; color: #086a57; }
+:root[data-theme="light"] .sidebar-bottom { border-color: #d2dce0; }
+:root[data-theme="light"] .sidebar-bottom p { color: #637781; }
+:root[data-theme="light"] .topbar { background: #f7fafbe8; border-color: #ccd8dd; }
+:root[data-theme="light"] .breadcrumb { color: #657984; }
+:root[data-theme="light"] .breadcrumb span { color: #334752; }
+:root[data-theme="light"] .connection { color: #38685b; }
+:root[data-theme="light"] .panel,
+:root[data-theme="light"] .metric { background: #ffffff; border-color: #cbd7dc; box-shadow: 0 9px 30px #344b5610; }
+:root[data-theme="light"] .metric { background: linear-gradient(135deg, #fff, #f7fafb); }
+:root[data-theme="light"] .metric-top,
+:root[data-theme="light"] .metric p,
+:root[data-theme="light"] .quiet-label,
+:root[data-theme="light"] .field-hint,
+:root[data-theme="light"] .section-subtitle { color: #607580; }
+:root[data-theme="light"] .metric strong,
+:root[data-theme="light"] .scan-intro h2,
+:root[data-theme="light"] .folder-target-name strong,
+:root[data-theme="light"] .job-summary strong { color: #1c3039; }
+:root[data-theme="light"] .page-heading h1 { color: #126b59; text-shadow: 0 1px 0 #fff, 1px 2px 0 #9bc9bc, 2px 3px 0 #72aa9b, 4px 6px 10px #365d5325; }
+:root[data-theme="light"] .page-heading h1 > span { color: #236d91; text-shadow: 0 1px 0 #fff, 1px 2px 0 #a5c9d9, 2px 3px 0 #78a6bb, 4px 6px 10px #365d5325; }
+:root[data-theme="light"] .console-top { background: #f5f8f9; border-color: #d4dee2; }
+:root[data-theme="light"] .mode-selector { background: #edf3f5; border-color: #c7d4d9; }
+:root[data-theme="light"] .mode-selector button { color: #58707b; }
+:root[data-theme="light"] .mode-selector button:hover { color: #17372f; background: #e1ece8; }
+:root[data-theme="light"] .mode-selector button.selected { background: #d9eee7; border-color: #9fcabc; color: #086b57; }
+:root[data-theme="light"] .scan-intro h2 > span,
+:root[data-theme="light"] .scan-intro p { color: #607680; }
+:root[data-theme="light"] .folder-target { background: linear-gradient(100deg, #edf7f4, #f4f8f9); border-color: #bfd1d5; }
+:root[data-theme="light"] .folder-symbol { background: #dcefe9; border-color: #9bc7b9; color: #08745e; }
+:root[data-theme="light"] input,
+:root[data-theme="light"] textarea,
+:root[data-theme="light"] select { color: #21343d; background: #fff; border-color: #b9c9d0; }
+:root[data-theme="light"] input::placeholder,
+:root[data-theme="light"] textarea::placeholder { color: #758993; }
+:root[data-theme="light"] select { color-scheme: light; }
+:root[data-theme="light"] .button-secondary,
+:root[data-theme="light"] .button-quiet,
+:root[data-theme="light"] .sidebar-toggle,
+:root[data-theme="light"] .theme-toggle { color: #405762; background: #f4f8f9; border-color: #bdccd2; }
+:root[data-theme="light"] .button-secondary:hover:not(:disabled),
+:root[data-theme="light"] .button-quiet:hover:not(:disabled),
+:root[data-theme="light"] .sidebar-toggle:hover,
+:root[data-theme="light"] .theme-toggle:hover { color: #16342d; background: #e2ece8; border-color: #8dafaa; }
+:root[data-theme="light"] .console-footer,
+:root[data-theme="light"] .job-summary,
+:root[data-theme="light"] th,
+:root[data-theme="light"] .value-details code { background: #edf3f5; border-color: #cbd7dc; color: #526a75; }
+:root[data-theme="light"] td { color: #344b56; border-color: #d9e1e4; }
+:root[data-theme="light"] tbody tr:hover { background: #e8f2ef; }
+:root[data-theme="light"] .provider-result,
+:root[data-theme="light"] .result-block { border-color: #cbd7dc; }
+:root[data-theme="light"] .desktop-launch details[open] { background: #fff; border-color: #c7d4d9; }
+
+@media (max-width: 700px) {
+  .theme-toggle-label { display: none; }
+  .theme-toggle { width: 34px; padding: 7px; }
+  .topbar-right { gap: 8px; }
+}

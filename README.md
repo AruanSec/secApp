@@ -395,6 +395,27 @@ marks the job failed; reselect the folder and retry. Abandoned uploads expire af
 10 minutes of inactivity when a new selected-folder scan is requested. ClamAV must
 be configured for folder scanning.
 
+## Linux on-access scanning
+
+An optional Compose profile monitors the host's `~/Download` and `/tmp` folders in
+real time with ClamAV. It reports detections in the `clamonacc` container log; it
+does not add them to Sentinel's user-owned reports or quarantine. On-access scanning
+uses Linux fanotify and is not supported by Docker Desktop on macOS or Windows.
+
+Make sure `~/Download` exists. If your distribution uses `~/Downloads`, set its
+absolute path in `.env`, for example `ONACCESS_DOWNLOAD_DIR=/home/alex/Downloads`.
+Then start the profile:
+
+```sh
+docker compose --profile onaccess up -d
+docker compose logs -f clamonacc
+```
+
+The monitor is detection-only (`OnAccessPrevention false`) and mounts both folders
+read-only. The container receives `CAP_SYS_ADMIN` and host PID visibility because
+fanotify requires them, so only enable this profile on a trusted Linux host. Stop it
+with `docker compose --profile onaccess stop clamonacc`.
+
 
 ## Quarantine
 

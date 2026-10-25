@@ -69,6 +69,35 @@ services:
       retries: 5
       start_period: 120s
 
+  # Linux-only, opt-in real-time scanning for the requested host folders.
+  # Start with: docker compose --profile onaccess up -d
+  clamonacc:
+    build:
+      context: ./deploy/clamd
+      dockerfile: Dockerfile.onaccess
+    profiles: ["onaccess"]
+    depends_on:
+      clamd:
+        condition: service_healthy
+    command: ["--foreground", "--stream", "--wait", "--config-file=/etc/clamav/onaccess.conf"]
+    network_mode: "service:clamd"
+    pid: host
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ./deploy/clamd/onaccess.conf:/etc/clamav/onaccess.conf:ro,z
+      - type: bind
+        source: ${ONACCESS_DOWNLOAD_DIR:-~/Download}
+        target: /scan/Download
+        read_only: true
+      - type: bind
+        source: /tmp
+        target: /scan/tmp
+        read_only: true
+    restart: unless-stopped
+
 volumes:
   app-data:
   clam-db:

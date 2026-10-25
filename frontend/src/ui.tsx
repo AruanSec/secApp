@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 
-export type IconName = "shield" | "grid" | "scan" | "activity" | "folder" | "target" | "layers" | "arrow" | "refresh" | "download" | "check" | "alert" | "file" | "clock" | "chevron" | "spark";
+export type IconName = "shield" | "grid" | "scan" | "activity" | "folder" | "target" | "layers" | "arrow" | "refresh" | "download" | "check" | "alert" | "file" | "clock" | "chevron" | "spark" | "sun" | "moon";
 const paths: Record<IconName, React.ReactNode> = {
   shield: <><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z" /><path d="m8 12 3 3 5-6" /></>,
   grid: <><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></>,
@@ -18,6 +18,8 @@ const paths: Record<IconName, React.ReactNode> = {
   clock: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>,
   chevron: <path d="m9 5 7 7-7 7" />,
   spark: <><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z" /></>,
+  sun: <><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" /></>,
+  moon: <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z" />,
 };
 export function Icon({ name, size = 20, className = "" }: { name: IconName; size?: number; className?: string }) {
   return <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;

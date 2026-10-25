@@ -23,6 +23,16 @@ const MODES: { id: string; label: string; icon: IconName }[] = [
 ];
 const PROVIDERS: Record<string, string> = { clamd: "ClamAV", virustotal: "VirusTotal", alienvault: "AlienVault OTX", abusech: "MalwareBazaar" };
 
+type Theme = "light" | "dark";
+
+function ThemeToggle({ theme, onToggle }: { theme: Theme; onToggle: () => void }) {
+  const next = theme === "dark" ? "light" : "dark";
+  return <button type="button" className="theme-toggle" onClick={onToggle} aria-label={`Use ${next} theme`} title={`Use ${next} theme`}>
+    <Icon name={theme === "dark" ? "sun" : "moon"} size={17} />
+    <span className="theme-toggle-label">{next === "light" ? "Light" : "Dark"}</span>
+  </button>;
+}
+
 function IndicatorScan({ onComplete }: { onComplete: () => void }) {
   const [type, setType] = useState<IoCType>("ip");
   const [value, setValue] = useState("");
@@ -93,7 +103,7 @@ function BatchScan({ onComplete }: { onComplete: () => void }) {
   </div>;
 }
 
-function Workspace({ username, isAdmin, onLogout }: { username: string; isAdmin: boolean; onLogout: () => void }) {
+function Workspace({ username, isAdmin, onLogout, theme, onThemeToggle }: { username: string; isAdmin: boolean; onLogout: () => void; theme: Theme; onThemeToggle: () => void }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     try { return localStorage.getItem("sentinel-sidebar-collapsed") === "true"; }
     catch { return false; }
@@ -145,7 +155,7 @@ function Workspace({ username, isAdmin, onLogout }: { username: string; isAdmin:
       <div className="sidebar-bottom"><div className="local-icon"><Icon name="shield" size={20} /></div><strong>Your files. Your workspace.</strong><p>Inspect locally.<br />Keep the evidence in view.</p><span className="sidebar-tag">LOCAL FILE ANALYSIS</span></div>
     </aside>
     <div className="main-shell">
-      <header className="topbar"><div className="topbar-left"><button type="button" className="sidebar-toggle" aria-controls="workspace-sidebar" aria-expanded={!sidebarCollapsed} aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"} title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"} onClick={() => setSidebarCollapsed((collapsed) => !collapsed)}><Icon name="chevron" size={18} className={sidebarCollapsed ? "" : "collapse-chevron"} /></button><div className="breadcrumb">Workspace <Icon name="chevron" size={12} /><span>Security operations</span></div></div><div className="topbar-right"><span className={`connection ${error ? "connection-error" : loading ? "connection-loading" : ""}`}><i />{error ? "Connection issue" : loading ? "Connecting" : "API connected"}</span><span className="quiet-label">{username}{isAdmin ? " · Admin" : ""}</span><button className="button button-quiet" onClick={onLogout}>Sign out</button></div></header>
+      <header className="topbar"><div className="topbar-left"><button type="button" className="sidebar-toggle" aria-controls="workspace-sidebar" aria-expanded={!sidebarCollapsed} aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"} title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"} onClick={() => setSidebarCollapsed((collapsed) => !collapsed)}><Icon name="chevron" size={18} className={sidebarCollapsed ? "" : "collapse-chevron"} /></button><div className="breadcrumb">Workspace <Icon name="chevron" size={12} /><span>Security operations</span></div></div><div className="topbar-right"><span className={`connection ${error ? "connection-error" : loading ? "connection-loading" : ""}`}><i />{error ? "Connection issue" : loading ? "Connecting" : "API connected"}</span><ThemeToggle theme={theme} onToggle={onThemeToggle} /><span className="quiet-label">{username}{isAdmin ? " · Admin" : ""}</span><button className="button button-quiet" onClick={onLogout}>Sign out</button></div></header>
       <main className="workspace">
         <DesktopLaunch />
         <section id="overview" className="overview"><div className="page-heading"><div><span className="eyebrow">SECURITY OPERATIONS</span><h1>Security, in focus<span>.</span></h1><p>A clear view of your files, indicators and scan evidence.</p></div><button className="button button-secondary" onClick={refresh} disabled={loading}><Icon name="refresh" size={16} className={loading ? "spin" : ""} />Refresh data</button></div>
@@ -170,6 +180,13 @@ function Workspace({ username, isAdmin, onLogout }: { username: string; isAdmin:
 
 
 export default function App() {
+  const [theme, setTheme] = useState<Theme>(() => {
+    try {
+      const saved = localStorage.getItem("sentinel-theme");
+      if (saved === "light" || saved === "dark") return saved;
+    } catch { /* Use the operating-system preference when storage is unavailable. */ }
+    return window.matchMedia?.("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  });
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const [registering, setRegistering] = useState(false);
@@ -183,6 +200,13 @@ export default function App() {
     window.addEventListener("sentinel-session-expired", expired);
     return () => window.removeEventListener("sentinel-session-expired", expired);
   }, []);
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#090e15" : "#eef3f5");
+    try { localStorage.setItem("sentinel-theme", theme); }
+    catch { /* The selected theme still applies for this session. */ }
+  }, [theme]);
   const submit = async (event: FormEvent) => {
     event.preventDefault(); setBusy(true); setError(null);
     try { setSession(await sessionAction(registering ? "register" : "login", username, password)); setPassword(""); }
@@ -193,9 +217,10 @@ export default function App() {
     try { await signOut(); setSession(null); setPassword(""); }
     catch (err) { window.alert(err instanceof Error ? err.message : "Sign-out failed"); }
   };
-  if (loading) return <main className="auth-shell"><p role="status">Loading your workspace…</p></main>;
-  if (session) return <Workspace key={session.username} username={session.username} isAdmin={session.is_admin} onLogout={logout} />;
-  return <main className="auth-shell"><section className="panel auth-panel">
+  const toggleTheme = () => setTheme((current) => current === "dark" ? "light" : "dark");
+  if (loading) return <main className="auth-shell"><ThemeToggle theme={theme} onToggle={toggleTheme} /><p role="status">Loading your workspace…</p></main>;
+  if (session) return <Workspace key={session.username} username={session.username} isAdmin={session.is_admin} onLogout={logout} theme={theme} onThemeToggle={toggleTheme} />;
+  return <main className="auth-shell"><div className="auth-theme"><ThemeToggle theme={theme} onToggle={toggleTheme} /></div><section className="panel auth-panel">
     <DesktopLaunch />
     <span className="eyebrow">SENTINEL SCAN WORKSPACE</span>
     <h1>{registering ? "Create your account" : "Sign in"}</h1>
