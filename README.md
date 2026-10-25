@@ -1,6 +1,8 @@
 # Sentinel Scan
 
 Scan IoCs and recursively inspect a folder chosen on your computer with ClamAV.
+On Linux, optionally enable [ClamOnAccess](#linux-on-access-scanning-clamonaccess)
+to monitor host folders for file-access events.
 
 ## Deploy on a new device
 
@@ -395,27 +397,73 @@ marks the job failed; reselect the folder and retry. Abandoned uploads expire af
 10 minutes of inactivity when a new selected-folder scan is requested. ClamAV must
 be configured for folder scanning.
 
-## Linux on-access scanning
+## Linux on-access scanning (ClamOnAccess)
 
-An optional Compose profile monitors the host's `~/Download` and `/tmp` folders in
-real time with ClamAV. It reports detections in the `clamonacc` container log; it
-does not add them to Sentinel's user-owned reports or quarantine. On-access scanning
-uses Linux fanotify and is not supported by Docker Desktop on macOS or Windows.
+ClamOnAccess (`clamonacc`) is available through the optional `onaccess` Compose
+profile. It monitors the host's `~/Download` and `/tmp` folders for file-access
+events and streams file contents to the existing `clamd` service for inspection.
+The profile is disabled by default; ordinary folder scans do not require it.
+
+On-access scanning requires a native Linux host with kernel fanotify support. It
+is not supported by Docker Desktop on macOS or Windows. Detections appear in the
+`clamonacc` container log, independently of the browser or Electron frontend; they
+are not added to Sentinel's user-owned reports or quarantine, and do not trigger
+reputation-provider lookups.
+
+### Configure and start
 
 Make sure `~/Download` exists. If your distribution uses `~/Downloads`, set its
-absolute path in `.env`, for example `ONACCESS_DOWNLOAD_DIR=/home/alex/Downloads`.
-Then start the profile:
+absolute path in the project-root `.env`:
+
+```dotenv
+ONACCESS_DOWNLOAD_DIR=/home/alex/Downloads
+```
+
+Use an existing directory owned by the intended host user, especially when running
+Compose through a different account. From the project directory, build and start
+the profile:
 
 ```sh
-docker compose --profile onaccess up -d
+docker compose --profile onaccess up --build -d
+docker compose --profile onaccess ps
 docker compose logs -f clamonacc
 ```
 
-The monitor is detection-only (`OnAccessPrevention false`) and mounts both folders
-read-only. The container receives `CAP_SYS_ADMIN` and host PID visibility because
-fanotify requires them, so only enable this profile on a trusted Linux host. Stop it
-with `docker compose --profile onaccess stop clamonacc`.
+Compose builds the monitor from `deploy/clamd/Dockerfile.onaccess` and waits for
+`clamd` to be healthy before starting it. Initial signature downloads can take
+several minutes. The monitor shares `clamd`'s network namespace and connects to
+`127.0.0.1:3310`; no additional host port is exposed.
 
+| Setting | Current behavior |
+| --- | --- |
+| Download folder | `${ONACCESS_DOWNLOAD_DIR:-~/Download}` on the host, mounted read-only at `/scan/Download` |
+| Temporary folder | Host `/tmp`, mounted read-only at `/scan/tmp` |
+| Maximum file size | `OnAccessMaxFileSize 25M`; larger files are excluded from on-access scanning |
+| Prevention | `OnAccessPrevention false`; detections do not block access, remove files or quarantine them |
+| Configuration | `deploy/clamd/onaccess.conf`, mounted read-only in the monitor |
+
+The container receives `CAP_SYS_ADMIN` and host PID visibility for fanotify, so
+enable this profile only on a trusted Linux host. Monitoring reacts to access
+events; use **Folder scan** for an explicit scan of existing files.
+
+### Stop, update and troubleshoot
+
+```sh
+# Stop only the monitor:
+docker compose --profile onaccess stop clamonacc
+# Rebuild after source updates, or recreate after changing the folder in .env:
+docker compose --profile onaccess up --build -d --force-recreate clamonacc
+# Inspect scanner and monitor startup errors:
+docker compose logs --tail 100 clamd clamonacc
+# Stop and remove the full stack, including the optional monitor:
+docker compose --profile onaccess down
+```
+
+If the monitor cannot start, check that the configured host directory exists,
+`clamd` is healthy, and the Linux host supports fanotify and permits the configured
+capability. Permission or fanotify errors are reported in the monitor log. After
+editing `deploy/clamd/onaccess.conf`, restart the monitor with
+`docker compose --profile onaccess restart clamonacc`.
 
 ## Quarantine
 
